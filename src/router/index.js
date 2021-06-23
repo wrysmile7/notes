@@ -9,6 +9,7 @@ import AspectRatio from '@/components/aspect-ratio'
 import VisNetwork from '@/components/vis-network'
 import VisTimeline from '@/components/vis-timeline'
 import VisGraph3d from '@/components/vis-graph3d'
+import Snake from '@/components/snake'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/vis-graph3d',
       name: 'VisGraph3d',
       component: VisGraph3d
+    },
+    {
+      path: '/snack',
+      name: 'Snake',
+      component: Snake
     }
   ]
 })

@@ -1,20 +1,25 @@
 <template>
-  <div class="wrap">
-    <!-- <el-button-group>
-      <el-button type="primary" v-for="item in buttonConfig" :key="item" @click="linkTo(item)">{{item}}</el-button>
-    </el-button-group>
-    <button @click="reCreated()">aaa</button> -->
-    <div
-      class="light"
-      v-for="item in buttonConfig"
-      :key="item"
-      @click="linkTo(item)"
-    >
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      {{ item }}
+  <div class="external">
+    <div class="notice">
+      <p>这是最新CSS滚动公告，快来看啦！！！！！！！！！！！！！</p>
+    </div>
+    <div class="wrap">
+      <!-- <el-button-group>
+        <el-button type="primary" v-for="item in buttonConfig" :key="item" @click="linkTo(item)">{{item}}</el-button>
+      </el-button-group>
+      <button @click="reCreated()">aaa</button> -->
+      <div
+        class="light"
+        v-for="item in buttonConfig"
+        :key="item"
+        @click="linkTo(item)"
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        {{ item }}
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +37,8 @@ export default {
         'aspectratio',
         'vis-network',
         'vis-timeline',
-        'vis-graph3d'
+        'vis-graph3d',
+        'snake'
       ]
     }
   },
@@ -60,67 +66,86 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.wrap {
-  display: flex;
-  justify-content: space-around;
-  .light {
-    width: fit-content;
-    position: relative;
-    padding: 15px 20px;
-    color: #03e9f4;
-    font-size: 18px;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    cursor: pointer;
+.external{
+  .notice{
+    width: 30%;
+    margin: 50px auto;
     overflow: hidden;
-    animation: animatecolor 2s linear infinite;
-    &:hover {
-      background-color: #03e9f4;
-      color: #050801;
-      box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-        0 0 200px #03e9f4;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px #03e9f4;
+    p{
+      width: 100%;
+      height: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #03e9f4;
+      // animation: animatecolor 2s linear infinite;
+      animation: roll 10s linear infinite;
     }
-    div {
-      position: absolute;
-      &:nth-child(1) {
-        width: 100%;
-        height: 2px;
-        top: 0;
-        left: -100%;
-        background: linear-gradient(to right, transparent, #03e9f4);
-        animation: animate1 1s linear infinite;
+  }
+  .wrap {
+    display: flex;
+    justify-content: space-around;
+    .light {
+      width: fit-content;
+      position: relative;
+      padding: 15px 20px;
+      color: #03e9f4;
+      font-size: 18px;
+      text-transform: uppercase;
+      transition: 0.5s;
+      letter-spacing: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      animation: animatecolor 2s linear infinite;
+      &:hover {
+        background-color: #03e9f4;
+        color: #050801;
+        box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+          0 0 200px #03e9f4;
       }
-      &:nth-child(2) {
-        width: 2px;
-        height: 100%;
-        top: -100%;
-        right: 0;
-        background: linear-gradient(to bottom, transparent, #03e9f4);
-        animation: animate2 1s linear infinite;
-        animation-delay: 0.25s;
-      }
-      &:nth-child(3) {
-        width: 100%;
-        height: 2px;
-        bottom: 0;
-        right: -100%;
-        background: linear-gradient(to left, transparent, #03e9f4);
-        animation: animate3 1s linear infinite;
-        animation-delay: 0.5s;
-      }
-      &:nth-child(4) {
-        width: 2px;
-        height: 100%;
-        bottom: -100%;
-        left: 0;
-        background: linear-gradient(to top, transparent, #03e9f4);
-        animation: animate4 1s linear infinite;
-        animation-delay: 0.75s;
+      div {
+        position: absolute;
+        &:nth-child(1) {
+          width: 100%;
+          height: 2px;
+          top: 0;
+          left: -100%;
+          background: linear-gradient(to right, transparent, #03e9f4);
+          animation: animate1 1s linear infinite;
+        }
+        &:nth-child(2) {
+          width: 2px;
+          height: 100%;
+          top: -100%;
+          right: 0;
+          background: linear-gradient(to bottom, transparent, #03e9f4);
+          animation: animate2 1s linear infinite;
+          animation-delay: 0.25s;
+        }
+        &:nth-child(3) {
+          width: 100%;
+          height: 2px;
+          bottom: 0;
+          right: -100%;
+          background: linear-gradient(to left, transparent, #03e9f4);
+          animation: animate3 1s linear infinite;
+          animation-delay: 0.5s;
+        }
+        &:nth-child(4) {
+          width: 2px;
+          height: 100%;
+          bottom: -100%;
+          left: 0;
+          background: linear-gradient(to top, transparent, #03e9f4);
+          animation: animate4 1s linear infinite;
+          animation-delay: 0.75s;
+        }
       }
     }
   }
 }
+
 @keyframes animate1 {
   0% {
     left: -100%;
@@ -172,6 +197,14 @@ export default {
   }
   100% {
     filter:hue-rotate(360deg)
+  }
+}
+@keyframes roll {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: -100%;
   }
 }
 </style>
