@@ -61,7 +61,7 @@ export default new Router({
       component: VisGraph3d
     },
     {
-      path: '/snack',
+      path: '/snake',
       name: 'Snake',
       component: Snake
     }

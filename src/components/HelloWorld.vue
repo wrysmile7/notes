@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .external{
   .notice{
-    width: 30%;
+    width: 90%;
     margin: 50px auto;
     overflow: hidden;
     border-radius: 5px;
@@ -86,6 +86,7 @@ export default {
   .wrap {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     .light {
       width: fit-content;
       position: relative;

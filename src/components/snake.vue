@@ -1,15 +1,20 @@
 <template>
   <div class="wrap">
-    <p>分数:<span>{{score}}</span></p>
-    <p>难度:<span>{{level}}</span></p>
+    <div class="head">
+      <p>分数:<span>{{score}}</span></p>
+      <p>难度:<span>{{level}}</span></p>
+    </div>
     <div class="box">
-      <canvas class="canvas" id="canvas" width="400" height="400"></canvas>
+      <canvas class="canvas" id="canvas" width="350" height="350"></canvas>
       <div class="mask" v-show="!gameStatus">
         <p>游戏结束</p>
         <el-button @click="gameStart()">重新开始</el-button>
       </div>
     </div>
     <el-button @click="gameStart()" :disabled="btnStatus">开始游戏</el-button>
+    <div class="btn-group">
+      <el-button v-for="item in btnGroup" :key="item.keyCode" @click="handleKeyDown(item)">{{item.name}}</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -17,10 +22,28 @@ export default {
   name: 'snake',
   data () {
     return {
+      btnGroup: [
+        {
+          name: '上',
+          keyCode: 38
+        },
+        {
+          name: '下',
+          keyCode: 40
+        },
+        {
+          name: '左',
+          keyCode: 37
+        },
+        {
+          name: '右',
+          keyCode: 39
+        }
+      ],
       score: 0,
       level: 1,
       gameInterval: null,
-      block_size: 20,
+      block_size: 17.5,
       block_count: 20,
       speed: 500,
       snake: {
@@ -218,9 +241,15 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  .head{
+    display: flex;
+    >p{
+      margin: 20px 20px 0 20px;
+    }
+  }
   .box{
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
     margin: 20px auto;
     position: relative;
     .canvas{
@@ -243,6 +272,38 @@ export default {
         font-size: 48px;
         font-weight: bold;
         color: rgb(163, 18, 18);
+      }
+    }
+  }
+  .btn-group{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin-top: 20px;
+    button{
+      height: 50px;
+      width: 50px;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      position: absolute;
+      &:nth-child(1){
+        top: 0;
+        left: 50px;
+      }
+      &:nth-child(2){
+        bottom: 0;
+        left: 50px;
+      }
+      &:nth-child(3){
+        top: 50px;
+        left: 0;
+      }
+      &:nth-child(4){
+        top: 50px;
+        right: 0;
       }
     }
   }
