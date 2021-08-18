@@ -15,6 +15,9 @@ import VueNativeSock from 'vue-native-websocket'
 import "vis/dist/vis.css"
 
 import 'sweetalert2/src/sweetalert2.scss'
+
+// import cytoscape from 'cytoscape'
+// Vue.prototype.cytoscape = cytoscape
 // import { Timeline } from 'vis-network'
 // Vue.component('timeline', Timeline)
 

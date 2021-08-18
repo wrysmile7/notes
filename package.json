@@ -10,6 +10,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "cytoscape": "^3.19.0",
+    "cytoscape-avsdf": "^1.0.0",
+    "cytoscape-cola": "^2.5.0",
+    "cytoscape-cose-bilkent": "^4.1.0",
+    "cytoscape-grid-guide": "^2.3.3",
+    "cytoscape-navigator": "^2.0.1",
+    "cytoscape-panzoom": "^2.5.3",
     "element-ui": "^2.14.1",
     "file-saver": "^2.0.2",
     "lodash": "^4.17.20",

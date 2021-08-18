@@ -10,6 +10,7 @@ import VisNetwork from '@/components/vis-network'
 import VisTimeline from '@/components/vis-timeline'
 import VisGraph3d from '@/components/vis-graph3d'
 import Snake from '@/components/snake'
+import Cytoscape from '@/components/cytoscape'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
       path: '/snake',
       name: 'Snake',
       component: Snake
+    },
+    {
+      path: '/cytoscape',
+      name: 'Cytoscape',
+      component: Cytoscape
     }
   ]
 })

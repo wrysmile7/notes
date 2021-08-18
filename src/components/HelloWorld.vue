@@ -38,7 +38,8 @@ export default {
         'vis-network',
         'vis-timeline',
         'vis-graph3d',
-        'snake'
+        'snake',
+        'cytoscape'
       ]
     }
   },
