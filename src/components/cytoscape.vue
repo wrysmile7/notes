@@ -6,6 +6,11 @@
 
 <script>
 import cytoscape from 'cytoscape'
+import gridGuide from 'cytoscape-grid-guide'
+import dagre from 'cytoscape-dagre'
+
+cytoscape.use(dagre)
+gridGuide(cytoscape)
 
 export default {
   name: 'cytoscape',
@@ -13,12 +18,58 @@ export default {
   data () {
     return {
       nodes: [],
-      edges: []
+      edges: [],
+      options: {
+        // On/Off Modules
+        /* From the following four snap options, at most one should be true at a given time */
+        snapToGridOnRelease: true, // Snap to grid on release
+        snapToGridDuringDrag: false, // Snap to grid during drag
+        snapToAlignmentLocationOnRelease: false, // Snap to alignment location on release
+        snapToAlignmentLocationDuringDrag: false, // Snap to alignment location during drag
+        distributionGuidelines: false, // Distribution guidelines
+        geometricGuideline: false, // Geometric guidelines
+        initPosAlignment: false, // Guideline to initial mouse position
+        centerToEdgeAlignment: false, // Center to edge alignment
+        resize: false, // Adjust node sizes to cell sizes
+        parentPadding: false, // Adjust parent sizes to cell sizes by padding
+        drawGrid: true, // Draw grid background
+
+        // General
+        gridSpacing: 20, // Distance between the lines of the grid.
+        snapToGridCenter: true, // Snaps nodes to center of gridlines. When false, snaps to gridlines themselves. Note that either snapToGridOnRelease or snapToGridDuringDrag must be true.
+
+        // Draw Grid
+        zoomDash: true, // Determines whether the size of the dashes should change when the drawing is zoomed in and out if grid is drawn.
+        panGrid: false, // Determines whether the grid should move then the user moves the graph if grid is drawn.
+        gridStackOrder: -1, // Namely z-index
+        gridColor: '#dedede', // Color of grid lines
+        lineWidth: 1.0, // Width of grid lines
+
+        // Guidelines
+        guidelinesStackOrder: 4, // z-index of guidelines
+        guidelinesTolerance: 2.00, // Tolerance distance for rendered positions of nodes' interaction.
+        guidelinesStyle: { // Set ctx properties of line. Properties are here:
+          strokeStyle: '#8b7d6b', // color of geometric guidelines
+          geometricGuidelineRange: 400, // range of geometric guidelines
+          range: 100, // max range of distribution guidelines
+          minDistRange: 10, // min range for distribution guidelines
+          distGuidelineOffset: 10, // shift amount of distribution guidelines
+          horizontalDistColor: '#ff0000', // color of horizontal distribution alignment
+          verticalDistColor: '#00ff00', // color of vertical distribution alignment
+          initPosAlignmentColor: '#0000ff', // color of alignment to initial mouse location
+          lineDash: [0, 0], // line style of geometric guidelines
+          horizontalDistLine: [0, 0], // line style of horizontal distribution guidelines
+          verticalDistLine: [0, 0], // line style of vertical distribution guidelines
+          initPosAlignmentLine: [0, 0] // line style of alignment to initial mouse position
+        },
+        // Parent Padding
+        parentSpacing: -1 // -1 to set paddings of parents to gridSpacing
+      }
     }
   },
   methods: {
     createNode () {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 3; i++) {
         this.nodes.push({
           data: {
             id: 'n' + i,
@@ -29,11 +80,12 @@ export default {
             y: Math.floor(Math.random() * 500)
           }
         })
-        for (let j = 0; j < 10; j++) {
+        for (let j = 0; j < 3; j++) {
           this.nodes.push({
             data: {
               id: 'n' + i + j,
               size: Math.floor(Math.random() * 30) + 20
+              // parent: 'n' + Math.floor(Math.random() * 10)
             },
             position: {
               x: Math.floor(Math.random() * 1000),
@@ -44,8 +96,8 @@ export default {
       }
     },
     createEdge () {
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
           this.edges.push({
             data: {
               source: 'n' + i,
@@ -69,9 +121,10 @@ export default {
         animate: false,
         wheelSensitivity: 0.1,
         autounselectify: false,
-        autoungrabify: true,
+        autoungrabify: false, // 是否禁止拖动节点,为true时禁止拖动，默认为false
+        userPanningEnabled: true, // 是否启动背景平移,为false时禁止平移,默认为true
         layout: {
-          name: 'preset', // 节点布局类型'breadthfirst', 'circle', 'concentric', 'cose', 'grid','null', 'preset', 'random'
+          name: 'dagre', // 节点布局类型'breadthfirst', 'circle', 'concentric', 'cose', 'grid','null', 'preset', 'random'
           directed: true
         },
         // layout: options,
@@ -104,6 +157,13 @@ export default {
               'background-color': '#ff6a51',
               'color': '#ff6a51',
               'border-color': '#ff6a51'
+            }
+          },
+          {
+            selector: ':parent',
+            css: {
+              'text-valign': 'top',
+              'text-halign': 'center'
             }
           },
           // 线路默认样式
@@ -140,8 +200,21 @@ export default {
           this.on('select', 'node', function (evt) {
             console.log(evt.target.data())
           })
+          // this.gridGuide({
+          //   drawGrid: true,
+          //   gridColor: 'red'
+          // })
         }
       })
+      // cy.gridGuide(this.options)
+      // console.log(dagre)
+      // dagre.layout(cy)
+      // cy.animate({
+      //   pan: { x: 100, y: 100 },
+      //   zoom: 2
+      // }, {
+      //   duration: 1000
+      // })
     }
   },
   mounted () {

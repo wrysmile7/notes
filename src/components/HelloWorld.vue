@@ -39,7 +39,8 @@ export default {
         'vis-timeline',
         'vis-graph3d',
         'snake',
-        'cytoscape'
+        'cytoscape',
+        'rating'
       ]
     }
   },

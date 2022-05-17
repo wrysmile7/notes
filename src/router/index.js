@@ -11,6 +11,7 @@ import VisTimeline from '@/components/vis-timeline'
 import VisGraph3d from '@/components/vis-graph3d'
 import Snake from '@/components/snake'
 import Cytoscape from '@/components/cytoscape'
+import rating from '@/components/rating'
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path: '/cytoscape',
       name: 'Cytoscape',
       component: Cytoscape
+    },
+    {
+      path: '/rating',
+      name: 'rating',
+      component: rating
     }
   ]
 })
